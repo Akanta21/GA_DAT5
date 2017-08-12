@@ -28,7 +28,7 @@ type(a[0])  # returns int
 
 # sorting
 sorted(a)               # sorts the list
-sorted(a, reverse=True) # reverse=True is an 'optional argument'
+sorted(a, reverse=True)  # reverse=True is an 'optional argument'
 sorted(a, True)         # error because optional arguments must be named
 
 
@@ -50,7 +50,8 @@ a + ' there'        # use plus sign to combine strings
 str(5) + ' there'   # cast 5 to a string in order for this to work
 
 # uppercasing
-a[0] = 'H'      # error because strings are immutable (can't overwrite characters)
+# error because strings are immutable (can't overwrite characters)
+a[0] = 'H'
 a.upper()       # string method (this method doesn't exist for lists)
 
 # checking length
@@ -70,13 +71,21 @@ Bonus: Sort the list by the length of the names (shortest to longest).
 '''
 
 # list of names
+names = ['jon', 'chris', 'mary', 'peter']
 # last element
+print names[3]
 # length of first string
+print len(names[0])
 # overwrite existing element
+names[0] = 'cute'
 # append new element
+names.append('dog')
 # change last string to be lowercase
+names[-1].lower()
 # sort the list in reverse order
+names.sort(reverse=True)
 # sort the list by length
+names.sort(key=len)
 
 
 '''
@@ -96,11 +105,11 @@ for x in other:         # name 'x' does not matter, not defined in advance
 # for loop to create a list of 2, 4, 6, 8, 10
 doubled = []                # create empty list to store results
 for num in nums:            # loop through nums (will execute 5 times)
-    doubled.append(num*2)   # append the double of the current value of num
+    doubled.append(num * 2)   # append the double of the current value of num
 
 # equivalent list comprehension
-doubled = [num*2 for num in nums]   # expression (num*2) goes first, brackets
-                                    # indicate we are storing results in a list
+doubled = [num * 2 for num in nums]   # expression (num*2) goes first, brackets
+# indicate we are storing results in a list
 
 
 '''
@@ -120,19 +129,22 @@ Write a list comprehension that returns: ['A', 'B', 'C']
 letters = ['a', 'b', 'c']
 # iterate through a list of strings,
 # and each string has an 'upper' method
+map(lambda x: x.upper(), letters)
+[char.upper() for char in letters]
 word = 'abc'
 # iterate through each character
-
+map(lambda x: x.upper(), list(word))
+[char.upper() for char in list(word)]
 fruits = ['Apple', 'Banana', 'Cherry']
 # slice the first character from each string
-
-
+map(lambda x: x[0], fruits)
+[word[0] for word in fruits]
 '''
 DICTIONARIES
 '''
 
 # dictionaries are made of key-value pairs (like a real dictionary)
-family = {'dad':'Homer', 'mom':'Marge', 'size':2}
+family = {'dad': 'Homer', 'mom': 'Marge', 'size': 2}
 
 # check the length
 len(family)         # returns 3 (number of key-value pairs)
@@ -165,7 +177,7 @@ family['kids'][0]   # returns 'bart'
 family.keys()       # returns list: ['dad', 'kids', 'mom', 'size']
 family.values()     # returns list: ['Homer', ['bart', 'lisa'], 'Marge', 2]
 family.items()      # returns list of tuples:
-                    # [('dad', 'Homer'), ('kids', ['bart', 'lisa']), ('mom', 'Marge'), ('size', 2)]
+# [('dad', 'Homer'), ('kids', ['bart', 'lisa']), ('mom', 'Marge'), ('size', 2)]
 
 
 '''
@@ -178,16 +190,18 @@ Bonus: Do this last step using a list comprehension.
 '''
 
 # returns 'Marge'
+print family['mom']
 # replaces existing value for 'size'
+family['size'] = 5
 # access a list, then append 'Maggie' to it
+family['kids'].append('Maggie')
 # capitalize names by overwriting them
-
+family['kids'] = map(lambda x: x.capitalize(), family['kids'])
 
 # or, capitalize using a list comprehension and the 'capitalize' string method
 
 
 # or, slice the string, uppercase the first letter, and concatenate with other letters
-
 
 
 '''
@@ -225,7 +239,8 @@ API key: http://bit.ly/myechonest
 '''
 
 # request data from the Echo Nest API
-r = requests.get('http://developer.echonest.com/api/v4/artist/top_hottt?api_key=KBGUPZPJZS9PHWNIN&format=json')
+r = requests.get(
+    'http://developer.echonest.com/api/v4/artist/top_hottt?api_key=KBGUPZPJZS9PHWNIN&format=json')
 r.text          # looks like a dictionary
 type(r.text)    # actually stored as a string
 r.json()        # decodes JSON
@@ -236,4 +251,5 @@ top = r.json()  # store that dictionary
 artists = top['response']['artists']    # list of 15 dictionaries
 
 # create a list of artist names only
-names = [artist['name'] for artist in artists]  # can iterate through list to access dictionaries
+# can iterate through list to access dictionaries
+names = [artist['name'] for artist in artists]
